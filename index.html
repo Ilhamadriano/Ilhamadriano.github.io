@@ -3,33 +3,85 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>@ilham.pesstore.com</title>
+  <title>@ilham.pesstore</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
       color: #fff;
-      display: flex;
+      padding: 40px 20px;
+      display: none; /* Disembunyikan dulu, muncul setelah loading selesai */
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px;
+      opacity: 0;
+    }
+
+    /* LOADING SPINNER FULLSCREEN */
+    #preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0f0f0f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 5px solid rgba(0, 255, 255, 0.2);
+      border-top: 5px solid #00ffff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 20px #00ffff80;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Animasi fade-in untuk body */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    body.fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
     }
 
     .profile-img {
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      border: 3px solid #fff;
+      border: 3px solid #00ffff;
       object-fit: cover;
       margin-bottom: 15px;
+      box-shadow: 0 0 15px #00ffff70;
     }
 
     h1 {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 600;
       margin-bottom: 5px;
+      color: #00ffff;
     }
 
     .bio {
@@ -37,6 +89,7 @@
       color: #aaa;
       margin-bottom: 30px;
       text-align: center;
+      max-width: 400px;
     }
 
     .link-container {
@@ -48,22 +101,25 @@
     }
 
     .link-btn {
-      background: #1f1f1f;
-      border: 1px solid #333;
-      color: #fff;
+      background: #121212;
+      border: 2px solid #00ffff;
+      color: #00ffff;
       padding: 14px 20px;
-      border-radius: 12px;
+      border-radius: 14px;
       text-decoration: none;
       font-weight: 500;
       transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 10px #00ffff30;
     }
 
     .link-btn:hover {
-      background: #333;
-      transform: scale(1.02);
+      background: #00ffff;
+      color: #000;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 15px #00ffffa0;
     }
 
     .link-btn span {
@@ -74,47 +130,61 @@
     footer {
       margin-top: 50px;
       font-size: 12px;
-      color: #555;
+      color: #666;
     }
   </style>
 </head>
 <body>
+
+  <!-- LOADING SPINNER -->
+  <div id="preloader">
+    <div class="spinner"></div>
+  </div>
 
   <!-- FOTO PROFIL -->
   <img class="profile-img" src="pp.jpg" alt="Foto Profil">
 
   <!-- NAMA -->
   <h1>@ilham.pesstore</h1>
-  <p class="bio">Toko Akun eFootball Mobile ⚽ | Grup Market eFootball & Saluran WhatsApp 📢 | Cek keamanan & keaslian admin</p>
+  <p class="bio">Toko Akun eFootball Mobile ⚽ | Grup Market eFootball & Saluran WhatsApp 📢<br> Cek keamanan & keaslian admin</p>
 
   <!-- LINK-LINK -->
   <div class="link-container">
-
-    <!-- Grup WhatsApp -->
     <a class="link-btn" href="https://chat.whatsapp.com/LDlzWenVd8q8YP3Dl184nO?mode=ac_t" target="_blank">
-      <span>💬</span> MARKET EFB || ILHAM.PESSTORE
+      <span></span> GRUP JB EFB || ILHAM.PESSTORE
     </a>
-
-    <!-- Chat WhatsApp -->
     <a class="link-btn" href="https://wa.me/6285147308175" target="_blank">
-      <span>📞</span> WHATSAPP ADMIN
+      <span></span> WHATSAPP ADMIN
     </a>
-
-    <!-- Instagram -->
     <a class="link-btn" href="https://www.instagram.com/ilham.pesstore?igsh=aXNha2Jpa3Y0cWkz" target="_blank">
-      <span>📸</span> INSTAGRAM
+      <span></span> INSTAGRAM
     </a>
-
-    <!-- Saluran WhatsApp -->
+    
+        <a class="link-btn" href="https://www.facebook.com/share/1HJGxaafyU/" target="_blank">
+      <span></span> FACEBOOK
+    </a>
+    
     <a class="link-btn" href="https://whatsapp.com/channel/0029VbBEy9bFCCodHVSjw92T" target="_blank">
-      <span>📢</span> SALURAN WHATSAPP ADMIN [ALL TESTI & ALL STOK]
+      <span></span> TESTIMONI & STOK AKUN
     </a>
-
   </div>
 
   <footer>
     © 2025 Ilham Pesstore. All rights reserved.
   </footer>
+
+  <!-- SCRIPT: Hilangkan preloader saat halaman siap -->
+  <script>
+    window.addEventListener('load', function () {
+      const preloader = document.getElementById('preloader');
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+        document.body.style.display = 'flex';
+        document.body.classList.add('fade-in');
+      }, 300);
+    });
+  </script>
 
 </body>
 </html>
